@@ -1,0 +1,510 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHRGEVFINDER</title>
+
+  <!-- Fuente limpia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+      color: #e5e7eb;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 520px;
+      background: linear-gradient(145deg, #020617, #020617, #111827);
+      border-radius: 18px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(148, 163, 184, 0.12);
+      padding: 20px 18px 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .title-block {
+      max-width: 75%;
+    }
+
+    .title {
+      font-size: 18px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 14px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(22, 163, 74, 0.18);
+      color: #bbf7d0;
+      font-weight: 700;
+      border: 1px solid rgba(34, 197, 94, 0.9);
+      box-shadow: 0 0 14px rgba(22, 163, 74, 0.5);
+    }
+
+    .section {
+      margin-top: 14px;
+      padding: 12px 12px 14px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 8px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      color: #e5e7eb;
+      margin-bottom: 3px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+      appearance: none;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    .checkbox-row input {
+      width: 15px;
+      height: 15px;
+      accent-color: #22c55e;
+    }
+
+    .primary-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #020617;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .primary-btn:active:not(:disabled) {
+      transform: translateY(1px);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+    }
+
+    .stations-list {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.5;
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .stations-group-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .station-item {
+      margin-top: 7px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .station-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 2px;
+    }
+
+    .station-meta {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .tag-row {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tag {
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #cbd5f5;
+    }
+
+    .tag-fast {
+      border-color: rgba(74, 222, 128, 0.9);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.18);
+    }
+
+    .tag-level2 {
+      border-color: rgba(59, 130, 246, 0.8);
+      color: #bfdbfe;
+      background: rgba(30, 64, 175, 0.28);
+    }
+
+    .foot {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 10px;
+      color: #4b5563;
+    }
+
+    .foot span {
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .foot small {
+      display: block;
+      font-size: 9px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 360px) {
+      body {
+        padding: 8px;
+      }
+      .app-container {
+        padding: 14px 12px 12px;
+        border-radius: 14px;
+      }
+      .title {
+        font-size: 16px;
+      }
+      .subtitle {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <header class="header">
+    <div class="title-block">
+      <div class="title">CHRGEVFINDER</div>
+      <div class="subtitle">
+        Encuentra cargadores eléctricos cercanos a tu ubicación.
+      </div>
+    </div>
+    <div class="badge">EV Ready</div>
+  </header>
+
+  <section class="section">
+    <div class="section-title">
+      1. Parámetros de búsqueda
+    </div>
+    <p class="hint">
+      Usa tu ubicación actual para buscar cargadores eléctricos (EV) en el radio que elijas.
+      Puedes filtrar para ver solo cargadores rápidos (DC Fast).
+    </p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="radiusSelect">Radio de búsqueda (millas)</label>
+        <select id="radiusSelect">
+          <option value="5">5 mi</option>
+          <option value="10" selected>10 mi</option>
+          <option value="25">25 mi</option>
+          <option value="50">50 mi</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="fastOnly" />
+      <label for="fastOnly">Mostrar solo cargadores rápidos (DC Fast)</label>
+    </div>
+
+    <button class="primary-btn" id="searchBtn">
+      Buscar cargadores cerca de mí
+    </button>
+
+    <div id="stationsList" class="stations-list">
+      <div class="hint">
+        Cuando aceptes permisos de ubicación y presiones el botón,
+        verás aquí los cargadores EV más cercanos.
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Powered by Ottoleox</span>
+    <small>Hecho por un driver, para drivers EV.</small>
+  </footer>
+</div>
+
+<script>
+  // 🔐 Pega aquí tu API key real del NREL entre comillas
+  const NREL_API_KEY = "EKwD8YE3V9ulKI0vR15uwiMtLwm97T36t2vqatwq";
+
+  const searchBtn = document.getElementById("searchBtn");
+  const radiusSelect = document.getElementById("radiusSelect");
+  const fastOnlyCheckbox = document.getElementById("fastOnly");
+  const stationsList = document.getElementById("stationsList");
+
+  let isSearching = false;
+
+  function setSearching(state) {
+    isSearching = state;
+    searchBtn.disabled = state;
+    searchBtn.textContent = state
+      ? "Buscando cargadores..."
+      : "Buscar cargadores cerca de mí";
+  }
+
+  function getUserLocation(onSuccess, onError) {
+    if (!navigator.geolocation) {
+      onError("Este navegador no soporta geolocalización.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        onSuccess({ lat, lon });
+      },
+      (err) => {
+        console.error(err);
+        onError("No se pudo obtener tu ubicación. Revisa permisos de ubicación.");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000
+      }
+    );
+  }
+
+  async function fetchEVStations(lat, lon, radiusMiles) {
+    const url =
+      "https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json" +
+      `?api_key=${encodeURIComponent(NREL_API_KEY)}` +
+      `&latitude=${lat}` +
+      `&longitude=${lon}` +
+      `&radius=${radiusMiles}` +
+      `&fuel_type=ELEC`;
+
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Error HTTP " + res.status);
+    }
+    const data = await res.json();
+
+    if (!data.fuel_stations || data.fuel_stations.length === 0) {
+      return [];
+    }
+
+    return data.fuel_stations.map(st => ({
+      name: st.station_name || "Sin nombre",
+      address: st.street_address || "",
+      city: st.city || "",
+      distance: st.distance ? st.distance.toFixed(2) : "?",
+      network: st.ev_network || "",
+      connectors: st.ev_connector_types || [],
+      level1: st.ev_level1_evse_num || 0,
+      level2: st.ev_level2_evse_num || 0,
+      dcFast: st.ev_dc_fast_num || 0
+    }));
+  }
+
+  function renderStations(stations, fastOnly) {
+    if (!stations.length) {
+      stationsList.innerHTML =
+        '<div class="hint">No se encontraron cargadores en el radio seleccionado.</div>';
+      return;
+    }
+
+    // Si quiere solo rápidos (DC Fast), filtramos
+    let filtered = stations;
+    if (fastOnly) {
+      filtered = stations.filter(s => s.dcFast > 0);
+      if (!filtered.length) {
+        stationsList.innerHTML =
+          '<div class="hint">No se encontraron cargadores rápidos (DC Fast) en el radio seleccionado.</div>';
+        return;
+      }
+    }
+
+    // Orden por distancia
+    filtered.sort((a, b) => {
+      const da = parseFloat(a.distance) || 9999;
+      const db = parseFloat(b.distance) || 9999;
+      return da - db;
+    });
+
+    let html = '<div class="stations-group-title">🔌 Cargadores EV cercanos</div>';
+
+    filtered.forEach(st => {
+      const tags = [];
+
+      if (st.dcFast > 0) {
+        tags.push(`<span class="tag tag-fast">⚡ DC Fast (${st.dcFast})</span>`);
+      }
+      if (st.level2 > 0) {
+        tags.push(`<span class="tag tag-level2">AC Level 2 (${st.level2})</span>`);
+      }
+      if (st.connectors.length > 0) {
+        tags.push(
+          `<span class="tag">Conectores: ${st.connectors.join(", ")}</span>`
+        );
+      }
+      if (st.network) {
+        tags.push(`<span class="tag">${st.network}</span>`);
+      }
+
+      html += `
+        <div class="station-item">
+          <div class="station-name">
+            ${st.name} <span style="color:#9ca3af; font-weight:400;">-- ${st.distance} mi</span>
+          </div>
+          <div class="station-meta">
+            ${st.address}${st.city ? ", " + st.city : ""}
+          </div>
+          ${tags.length > 0 ? `<div class="tag-row">${tags.join("")}</div>` : ""}
+        </div>
+      `;
+    });
+
+    stationsList.innerHTML = html;
+  }
+
+  searchBtn.addEventListener("click", () => {
+    if (!NREL_API_KEY || NREL_API_KEY === "EKwD8YE3V9ulKI0vR15uwiMtLwm97T36t2vqatwq") {
+      stationsList.innerHTML =
+        '<div class="hint">Falta configurar la API key de NREL en el código.</div>';
+      return;
+    }
+
+    if (isSearching) return;
+
+    const radiusMiles = parseFloat(radiusSelect.value) || 10;
+    const fastOnly = fastOnlyCheckbox.checked;
+
+    setSearching(true);
+    stationsList.innerHTML = '<div class="hint">Obteniendo tu ubicación…</div>';
+
+    getUserLocation(
+      async ({ lat, lon }) => {
+        try {
+          stationsList.innerHTML = '<div class="hint">Buscando cargadores EV cercanos…</div>';
+          const stations = await fetchEVStations(lat, lon, radiusMiles);
+          renderStations(stations, fastOnly);
+        } catch (e) {
+          console.error(e);
+          stationsList.innerHTML =
+            '<div class="hint">Ocurrió un error al obtener los cargadores. Intenta de nuevo más tarde.</div>';
+        } finally {
+          setSearching(false);
+        }
+      },
+      (msg) => {
+        stationsList.innerHTML = `<div class="hint">${msg}</div>`;
+        setSearching(false);
+      }
+    );
+  });
+</script>
+</body>
+</html>
