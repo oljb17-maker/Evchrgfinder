@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CHRGEVFINDER</title>
-
-  <!-- Fuente limpia -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>EV Charger Finder</title>
 
   <style>
     * {
@@ -19,150 +14,116 @@
 
     body {
       min-height: 100vh;
-      padding: 16px;
       display: flex;
       justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+      align-items: flex-start;
+      padding: 12px;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
       color: #e5e7eb;
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    .app-container {
+    .app {
       width: 100%;
-      max-width: 520px;
-      background: linear-gradient(145deg, #020617, #020617, #111827);
+      max-width: 600px;
+      background: #020617;
       border-radius: 18px;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.8),
-        0 0 0 1px rgba(148, 163, 184, 0.12);
-      padding: 20px 18px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      padding: 16px 14px 18px;
     }
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 14px;
     }
 
-    .title-block {
-      max-width: 75%;
-    }
-
-    .title {
-      font-size: 18px;
-      letter-spacing: 0.14em;
+    .header-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: #38bdf8;
-      font-weight: 700;
     }
 
-    .subtitle {
-      font-size: 12px;
-      color: #9ca3af;
+    .header-sub {
       margin-top: 4px;
-    }
-
-    .badge {
-      padding: 6px 10px;
-      border-radius: 14px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: rgba(22, 163, 74, 0.18);
-      color: #bbf7d0;
-      font-weight: 700;
-      border: 1px solid rgba(34, 197, 94, 0.9);
-      box-shadow: 0 0 14px rgba(22, 163, 74, 0.5);
+      font-size: 13px;
+      color: #9ca3af;
+      line-height: 1.4;
     }
 
     .section {
       margin-top: 14px;
-      padding: 12px 12px 14px;
+      padding: 12px;
       border-radius: 12px;
-      background: radial-gradient(circle at top left, #111827, #020617);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: radial-gradient(circle at top left, #020617, #020617 50%, #020617 100%);
+      border: 1px solid rgba(30, 64, 175, 0.6);
     }
 
     .section-title {
-      font-size: 13px;
+      font-size: 16px;         /* más grande */
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #60a5fa;
       margin-bottom: 8px;
     }
 
     .hint {
-      font-size: 11px;
-      color: #6b7280;
+      font-size: 12px;
+      color: #9ca3af;
       line-height: 1.4;
     }
 
-    .form-row {
+    .filters-row {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-top: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .form-group {
-      flex: 1;
-      min-width: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 11px;
+      font-size: 12px;
       color: #e5e7eb;
-      margin-bottom: 3px;
     }
 
-    select {
-      width: 100%;
-      padding: 8px 10px;
+    .filters-row label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      background: #020617;
+    }
+
+    .filters-row select {
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
       background: #020617;
       color: #e5e7eb;
       font-size: 13px;
-      outline: none;
-      appearance: none;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 10px;
-      font-size: 11px;
-      color: #e5e7eb;
-    }
-
-    .checkbox-row input {
-      width: 15px;
-      height: 15px;
-      accent-color: #22c55e;
     }
 
     .primary-btn {
       margin-top: 12px;
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: 999px;
       border: none;
-      outline: none;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       background: linear-gradient(135deg, #38bdf8, #22c55e);
       color: #020617;
       cursor: pointer;
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 0 18px rgba(56,189,248,0.65);
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    }
+
+    .primary-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 0 10px rgba(56,189,248,0.5);
+      opacity: 0.9;
     }
 
     .primary-btn:disabled {
@@ -171,46 +132,46 @@
       box-shadow: none;
     }
 
-    .primary-btn:active:not(:disabled) {
-      transform: translateY(1px);
-      box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
-    }
-
     .stations-list {
       margin-top: 12px;
-      font-size: 11px;
-      color: #9ca3af;
-      line-height: 1.5;
-      max-height: 320px;
-      overflow-y: auto;
-      padding-right: 4px;
+      font-size: 12px;
+      color: #cbd5f5;
     }
 
-    .stations-group-title {
-      font-size: 11px;
+    .stations-title {
+      font-size: 14px;
       font-weight: 600;
+      margin-bottom: 6px;
       color: #e5e7eb;
-      margin-bottom: 4px;
     }
 
     .station-item {
-      margin-top: 7px;
-      padding: 6px 8px;
-      border-radius: 8px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      margin-top: 10px;
+      padding: 10px 10px 10px;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid rgba(55,65,81,0.9);
     }
 
     .station-name {
-      font-size: 12px;
+      font-size: 16px;          /* CRÍTICO más grande */
       font-weight: 600;
-      color: #e5e7eb;
+      color: #f9fafb;
       margin-bottom: 2px;
     }
 
+    .station-distance {
+      font-size: 15px;          /* CRÍTICO más grande */
+      color: #22c55e;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
     .station-meta {
-      font-size: 11px;
+      font-size: 12px;
       color: #9ca3af;
+      line-height: 1.4;
+      margin-bottom: 6px;
     }
 
     .tag-row {
@@ -221,99 +182,105 @@
     }
 
     .tag {
+      font-size: 11px;
       padding: 2px 6px;
       border-radius: 999px;
-      font-size: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: #cbd5f5;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
     }
 
-    .tag-fast {
-      border-color: rgba(74, 222, 128, 0.9);
-      color: #bbf7d0;
-      background: rgba(22, 163, 74, 0.18);
-    }
+    .tag-fast   { border-color: #22c55e; color:#bbf7d0; }
+    .tag-tesla  { border-color: #f97316; color:#fed7aa; }
+    .tag-chademo{ border-color: #38bdf8; color:#bae6fd; }
 
-    .tag-level2 {
-      border-color: rgba(59, 130, 246, 0.8);
-      color: #bfdbfe;
-      background: rgba(30, 64, 175, 0.28);
+    .map-btn {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #020617;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.04em;
     }
 
     .foot {
-      margin-top: 14px;
+      margin-top: 16px;
       text-align: center;
-      font-size: 10px;
-      color: #4b5563;
+      font-size: 11px;
+      color: #6b7280;
     }
 
     .foot span {
       font-weight: 600;
+      color: #38bdf8;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #38bdf8;
     }
 
-    .foot small {
-      display: block;
-      font-size: 9px;
-      color: #6b7280;
-      margin-top: 2px;
+    /* Responsivo: celulares normales y pequeños */
+    @media (max-width: 480px) {
+      body { padding: 8px; }
+      .app { padding: 14px 12px 16px; }
+      .header-title { font-size: 19px; }
+      .header-sub { font-size: 13px; }
+      .section-title { font-size: 16px; }
+      .station-name { font-size: 17px; }
+      .station-distance { font-size: 16px; }
     }
 
     @media (max-width: 360px) {
-      body {
-        padding: 8px;
-      }
-      .app-container {
-        padding: 14px 12px 12px;
-        border-radius: 14px;
-      }
-      .title {
-        font-size: 16px;
-      }
-      .subtitle {
-        font-size: 11px;
-      }
+      .header-title { font-size: 18px; }
+      .station-name { font-size: 16px; }
+      .station-distance { font-size: 15px; }
     }
   </style>
 </head>
 <body>
-<div class="app-container">
+<div class="app">
   <header class="header">
-    <div class="title-block">
-      <div class="title">CHRGEVFINDER</div>
-      <div class="subtitle">
-        Encuentra cargadores eléctricos cercanos a tu ubicación.
-      </div>
+    <div class="header-title">EV CHARGER FINDER</div>
+    <div class="header-sub">
+      Encuentra cargadores cercanos usando tu ubicación.  
+      Puedes filtrar por cargadores rápidos, Tesla y CHAdeMO.
     </div>
-    <div class="badge">EV Ready</div>
   </header>
 
   <section class="section">
-    <div class="section-title">
-      1. Parámetros de búsqueda
-    </div>
+    <div class="section-title">1. Opciones de búsqueda</div>
     <p class="hint">
-      Usa tu ubicación actual para buscar cargadores eléctricos (EV) en el radio que elijas.
-      Puedes filtrar para ver solo cargadores rápidos (DC Fast).
+      Acepta el permiso de ubicación cuando el navegador lo pida.  
+      Luego puedes filtrar por tipo de cargador.
     </p>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="radiusSelect">Radio de búsqueda (millas)</label>
+    <div class="filters-row">
+      <label>
+        Radio:
         <select id="radiusSelect">
           <option value="5">5 mi</option>
           <option value="10" selected>10 mi</option>
+          <option value="15">15 mi</option>
           <option value="25">25 mi</option>
-          <option value="50">50 mi</option>
         </select>
-      </div>
-    </div>
+      </label>
 
-    <div class="checkbox-row">
-      <input type="checkbox" id="fastOnly" />
-      <label for="fastOnly">Mostrar solo cargadores rápidos (DC Fast)</label>
+      <label>
+        <input type="checkbox" id="fastOnly" />
+        Solo DC fast
+      </label>
+
+      <label>
+        <input type="checkbox" id="teslaOnly" />
+        Solo Tesla
+      </label>
+
+      <label>
+        <input type="checkbox" id="chademoOnly" />
+        Solo CHAdeMO
+      </label>
     </div>
 
     <button class="primary-btn" id="searchBtn">
@@ -322,26 +289,27 @@
 
     <div id="stationsList" class="stations-list">
       <div class="hint">
-        Cuando aceptes permisos de ubicación y presiones el botón,
-        verás aquí los cargadores EV más cercanos.
+        Cuando aceptes permisos de ubicación y presiones el botón, verás aquí los cargadores EV más cercanos.
       </div>
     </div>
   </section>
 
   <footer class="foot">
     <span>Powered by Ottoleox</span>
-    <small>Hecho por un driver, para drivers EV.</small>
+    <div>Hecho por un driver EV, para drivers EV.</div>
   </footer>
 </div>
 
 <script>
-  // 🔐 Pega aquí tu API key real del NREL entre comillas
+  // 🔑 Pega aquí tu API key real del NREL entre comillas
   const NREL_API_KEY = "EKwD8YE3V9ulKI0vR15uwiMtLwm97T36t2vqatwq";
 
-  const searchBtn = document.getElementById("searchBtn");
-  const radiusSelect = document.getElementById("radiusSelect");
-  const fastOnlyCheckbox = document.getElementById("fastOnly");
-  const stationsList = document.getElementById("stationsList");
+  const searchBtn      = document.getElementById("searchBtn");
+  const radiusSelect   = document.getElementById("radiusSelect");
+  const fastOnlyCheck  = document.getElementById("fastOnly");
+  const teslaOnlyCheck = document.getElementById("teslaOnly");
+  const chademoOnlyCheck = document.getElementById("chademoOnly");
+  const stationsList   = document.getElementById("stationsList");
 
   let isSearching = false;
 
@@ -372,7 +340,7 @@
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 60000
+        maximumAge: 60000,
       }
     );
   }
@@ -380,89 +348,97 @@
   async function fetchEVStations(lat, lon, radiusMiles) {
     const url =
       "https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json" +
-      `?api_key=${encodeURIComponent(NREL_API_KEY)}` +
+      `?api_key=${NREL_API_KEY}` +
       `&latitude=${lat}` +
       `&longitude=${lon}` +
       `&radius=${radiusMiles}` +
-      `&fuel_type=ELEC`;
+      "&fuel_type=ELEC" +
+      "&ev_network=all";
 
     const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error("Error HTTP " + res.status);
-    }
     const data = await res.json();
 
-    if (!data.fuel_stations || data.fuel_stations.length === 0) {
-      return [];
-    }
-
-    return data.fuel_stations.map(st => ({
-      name: st.station_name || "Sin nombre",
-      address: st.street_address || "",
-      city: st.city || "",
-      distance: st.distance ? st.distance.toFixed(2) : "?",
-      network: st.ev_network || "",
-      connectors: st.ev_connector_types || [],
-      level1: st.ev_level1_evse_num || 0,
-      level2: st.ev_level2_evse_num || 0,
-      dcFast: st.ev_dc_fast_num || 0
-    }));
+    if (!data.fuel_stations) return [];
+    return data.fuel_stations;
   }
 
-  function renderStations(stations, fastOnly) {
+  function filterStations(stations) {
+    const fastOnly   = fastOnlyCheck.checked;
+    const teslaOnly  = teslaOnlyCheck.checked;
+    const chademoOnly= chademoOnlyCheck.checked;
+
+    return stations.filter((st) => {
+      const connectors = st.ev_connector_types || [];
+      const hasTesla   = connectors.includes("TESLA");
+      const hasChademo = connectors.includes("CHADEMO");
+      const isFast     = (st.ev_dc_fast_num && st.ev_dc_fast_num > 0);
+
+      if (fastOnly && !isFast) return false;
+      if (teslaOnly && !hasTesla) return false;
+      if (chademoOnly && !hasChademo) return false;
+
+      return true;
+    });
+  }
+
+  function renderStations(stations) {
     if (!stations.length) {
       stationsList.innerHTML =
-        '<div class="hint">No se encontraron cargadores en el radio seleccionado.</div>';
+        '<div class="hint">No se encontraron estaciones con esos filtros en el radio seleccionado.</div>';
       return;
     }
 
-    // Si quiere solo rápidos (DC Fast), filtramos
-    let filtered = stations;
-    if (fastOnly) {
-      filtered = stations.filter(s => s.dcFast > 0);
-      if (!filtered.length) {
-        stationsList.innerHTML =
-          '<div class="hint">No se encontraron cargadores rápidos (DC Fast) en el radio seleccionado.</div>';
-        return;
-      }
-    }
+    let html = '<div class="stations-title">🔌 Cargadores cercanos</div>';
 
-    // Orden por distancia
-    filtered.sort((a, b) => {
-      const da = parseFloat(a.distance) || 9999;
-      const db = parseFloat(b.distance) || 9999;
-      return da - db;
-    });
+    stations.forEach((st) => {
+      const dist = st.distance ? st.distance.toFixed(2) : "?";
+      const addr = (st.street_address || "") + (st.city ? ", " + st.city : "");
+      const connectors = st.ev_connector_types || [];
+      const isFast = st.ev_dc_fast_num && st.ev_dc_fast_num > 0;
+      const hasTesla = connectors.includes("TESLA");
+      const hasChademo = connectors.includes("CHADEMO");
 
-    let html = '<div class="stations-group-title">🔌 Cargadores EV cercanos</div>';
-
-    filtered.forEach(st => {
       const tags = [];
 
-      if (st.dcFast > 0) {
-        tags.push(`<span class="tag tag-fast">⚡ DC Fast (${st.dcFast})</span>`);
+      if (isFast) {
+        tags.push('<span class="tag tag-fast">DC fast</span>');
+      } else if (st.ev_level2_evse_num && st.ev_level2_evse_num > 0) {
+        tags.push('<span class="tag">Level 2</span>');
       }
-      if (st.level2 > 0) {
-        tags.push(`<span class="tag tag-level2">AC Level 2 (${st.level2})</span>`);
+
+      if (hasTesla) {
+        tags.push('<span class="tag tag-tesla">Tesla</span>');
       }
-      if (st.connectors.length > 0) {
-        tags.push(
-          `<span class="tag">Conectores: ${st.connectors.join(", ")}</span>`
-        );
+      if (hasChademo) {
+        tags.push('<span class="tag tag-chademo">CHAdeMO</span>');
       }
-      if (st.network) {
-        tags.push(`<span class="tag">${st.network}</span>`);
+      if (connectors.length > 0) {
+        tags.push('<span class="tag">Conectores: ' +
+          connectors.join(", ") + "</span>");
+      }
+
+      // Botón "Abrir en mapas" usando lat/lon del cargador
+      let mapsUrl = "";
+      if (st.latitude && st.longitude) {
+        const lat = st.latitude;
+        const lon = st.longitude;
+        mapsUrl =
+          `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
       }
 
       html += `
         <div class="station-item">
-          <div class="station-name">
-            ${st.name} <span style="color:#9ca3af; font-weight:400;">-- ${st.distance} mi</span>
-          </div>
-          <div class="station-meta">
-            ${st.address}${st.city ? ", " + st.city : ""}
-          </div>
-          ${tags.length > 0 ? `<div class="tag-row">${tags.join("")}</div>` : ""}
+          <div class="station-name">${st.station_name || "Sin nombre"}</div>
+          <div class="station-distance">${dist} mi</div>
+          <div class="station-meta">${addr}</div>
+          ${tags.length ? '<div class="tag-row">' + tags.join("") + '</div>' : ""}
+          ${
+            mapsUrl
+              ? `<a class="map-btn" href="${mapsUrl}" target="_blank" rel="noopener">
+                   Abrir en mapas
+                 </a>`
+              : ""
+          }
         </div>
       `;
     });
@@ -470,7 +446,7 @@
     stationsList.innerHTML = html;
   }
 
-  searchBtn.addEventListener("click", () => {
+  searchBtn.addEventListener("click", async () => {
     if (!NREL_API_KEY || NREL_API_KEY === "AQUI_TU_API_KEY_NREL") {
       stationsList.innerHTML =
         '<div class="hint">Falta configurar la API key de NREL en el código.</div>';
@@ -478,23 +454,21 @@
     }
 
     if (isSearching) return;
-
-    const radiusMiles = parseFloat(radiusSelect.value) || 10;
-    const fastOnly = fastOnlyCheckbox.checked;
-
     setSearching(true);
     stationsList.innerHTML = '<div class="hint">Obteniendo tu ubicación…</div>';
 
     getUserLocation(
       async ({ lat, lon }) => {
         try {
-          stationsList.innerHTML = '<div class="hint">Buscando cargadores EV cercanos…</div>';
-          const stations = await fetchEVStations(lat, lon, radiusMiles);
-          renderStations(stations, fastOnly);
+          stationsList.innerHTML = '<div class="hint">Buscando cargadores…</div>';
+          const radius = parseFloat(radiusSelect.value) || 10;
+          const stations = await fetchEVStations(lat, lon, radius);
+          const filtered = filterStations(stations);
+          renderStations(filtered);
         } catch (e) {
           console.error(e);
           stationsList.innerHTML =
-            '<div class="hint">Ocurrió un error al obtener los cargadores. Intenta de nuevo más tarde.</div>';
+            '<div class="hint">Ocurrió un error al obtener los cargadores.</div>';
         } finally {
           setSearching(false);
         }
